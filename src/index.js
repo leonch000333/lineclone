@@ -5,12 +5,18 @@ import { ChakraProvider } from "@chakra-ui/react";
 
 import "./App.css";
 import { DrawerProvider } from "./providers/DrawerProvider";
+import { GroupNameProvider } from "./providers/GroupNameProvider";
+import { VoteProvider } from "./providers/VoteProvider";
 
 ReactDOM.render(
   <React.StrictMode>
     <ChakraProvider>
       <DrawerProvider>
-        <App />
+        <GroupNameProvider>
+          <VoteProvider>
+            <App />
+          </VoteProvider>
+        </GroupNameProvider>
       </DrawerProvider>
     </ChakraProvider>
   </React.StrictMode>,

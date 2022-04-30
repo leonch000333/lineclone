@@ -1,14 +1,24 @@
 import { CalendarIcon, ChevronRightIcon } from "@chakra-ui/icons";
 import { Box, Flex } from "@chakra-ui/react";
-import { memo } from "react";
+import { memo, useContext } from "react";
+import { DrawerContext } from "../../providers/DrawerProvider";
 import { DrawerTwoContents } from "../atoms/DrawerTwoContents";
 
-export const DrawerTwo = memo(() => {
+export const DrawerTwo = memo((props) => {
+  const { onOpenTwoPhoto, onOpenTwoAlbum } = props;
+
+  const { pageName } = useContext(DrawerContext);
+
   return (
     <>
-      {DrawerTwoContents.map((item) => (
+      {DrawerTwoContents.map((item, index) => (
         <Box>
-          <Flex alignItems="center" justify="space-between">
+          <Flex
+            onClick={index === 0 ? onOpenTwoPhoto : onOpenTwoAlbum}
+            alignItems="center"
+            justify="space-between"
+            _hover={{ cursor: "pointer" }}
+          >
             <Flex alignItems="center">
               <CalendarIcon mr={4} />
               {item.title}
@@ -21,6 +31,8 @@ export const DrawerTwo = memo(() => {
             borderRadius="20px"
             w="100%"
             h="100px"
+            px={6}
+            textAlign="center"
             bg="gray.100"
             alignItems="center"
             justify="center"

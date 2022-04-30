@@ -20,24 +20,35 @@ import {
   useDisclosure,
   Stack,
 } from "@chakra-ui/react";
-import { useContext } from "react";
+import { memo, useContext, useState } from "react";
 
-import { auth } from "../../firebase";
 import { DrawerContext } from "../../providers/DrawerProvider";
+import { GroupNameContext } from "../../providers/GroupNameProvider";
 import { DrawerFirstItems } from "../atoms/DrawerFirstItems";
-import { DrawerTwoContents } from "../atoms/DrawerTwoContents";
+import { LockModal } from "../modals/LockModal";
 import { WithdrawalModal } from "../modals/WithdrawalModal";
+import { DrawerHeaders } from "../organisms/DrawerHeaders";
 import { DrawerList } from "../organisms/DrawerList";
 import { DrawerTwo } from "../organisms/DrawerTwo";
+import { CalendarDrawer } from "./Calendar/CalendarDrawer";
+import { FiveContentsDrawer } from "./FiveContentsDrawer";
 import { InvitationDrawer } from "./invitationDrawer";
 import { MemberDrawer } from "./MemberDrawer";
+import { OthersDrawer } from "./OthersDrawer";
 
-export const TalkDrawer = (props) => {
+export const TalkDrawer = memo((props) => {
   //Drawerの設定をpropsとして受け取る。
   const { onClose, isOpen } = props;
 
-  //globalなstateを使用
-  const { notification, onClickLock } = useContext(DrawerContext);
+  const { lock, setLock, pageName, setPageName } = useContext(DrawerContext);
+  const { name } = useContext(GroupNameContext);
+
+  const [notification, setNotification] = useState(true);
+  const onClickLock = () => {
+    setNotification(!notification);
+    setLock(!lock);
+    onOpenLockModal();
+  };
 
   //Modalの設定をuseDisclosureで受け取る
   const {
@@ -53,6 +64,13 @@ export const TalkDrawer = (props) => {
     onOpen: onOpenMemberDrawer,
   } = useDisclosure();
 
+  //LockのDrawer発火
+  const {
+    onClose: onCloseLockModal,
+    isOpen: isOpenLockModal,
+    onOpen: onOpenLockModal,
+  } = useDisclosure();
+
   //invitationのDrawer発火
   const {
     onClose: onCloseInvitationDrawer,
@@ -60,7 +78,38 @@ export const TalkDrawer = (props) => {
     onOpen: onOpenInvitationDrawer,
   } = useDisclosure();
 
+  //fiveDrawerのDrawer発火
+  const {
+    onClose: onCloseFiveDrawer,
+    isOpen: isOpenFiveDrawer,
+    onOpen: onOpenFiveDrawer,
+  } = useDisclosure();
+
+  //CalendarDrawer発火
+  const {
+    onClose: onCloseCalendarDrawer,
+    isOpen: isOpenCalendarDrawer,
+    onOpen: onOpenCalendarDrawer,
+  } = useDisclosure();
+
+  //その他ののDrawer発火
+  const {
+    onClose: onCloseOthersDrawer,
+    isOpen: isOpenOthersDrawer,
+    onOpen: onOpenOthersDrawer,
+  } = useDisclosure();
+
   const lineMusic = () => window.open("https://music.line.me/about/", "_blank");
+
+  const onOpenTwoPhoto = () => {
+    setPageName("photo");
+    onOpenFiveDrawer();
+  };
+
+  const onOpenTwoAlbum = () => {
+    setPageName("album");
+    onOpenFiveDrawer();
+  };
 
   return (
     <>
@@ -73,11 +122,8 @@ export const TalkDrawer = (props) => {
       >
         <DrawerOverlay />
         <DrawerContent>
-          <DrawerCloseButton left="150px" top="30px" />
-          <DrawerHeader align="center">
-            {auth.currentUser.displayName}
-          </DrawerHeader>
-          <DrawerBody px="10%" fontSize="25px">
+          <DrawerHeaders onClick={onClose} children={name} />
+          <DrawerBody px="10%" fontSize={{ base: "18px", md: "25px" }}>
             <Box>
               <Flex direction={"row"} justify="space-between" my={8}>
                 <Box
@@ -90,13 +136,25 @@ export const TalkDrawer = (props) => {
                   ) : (
                     <LockIcon w={10} h={10} color="gray.400" />
                   )}
-                  <Box fontSize="18px">
+                  <Box fontSize={{ base: "14px", md: "18px" }}>
                     {notification ? "通知オフ" : "通知オン"}
                   </Box>
                 </Box>
-                <DrawerFirstItems onClick={onOpenMemberDrawer} icon={<TriangleDownIcon w={10} h={10} color="gray.400" />} text="メンバー" />
-                <DrawerFirstItems onClick={onOpenInvitationDrawer} icon={<AddIcon w={10} h={10} color="gray.400" />} text="招待" />
-                <DrawerFirstItems onClick={onOpenModal} icon={<WarningTwoIcon w={10} h={10} color="gray.400" />} text="退会" />
+                <DrawerFirstItems
+                  onClick={onOpenMemberDrawer}
+                  icon={<TriangleDownIcon w={10} h={10} color="gray.400" />}
+                  text="メンバー"
+                />
+                <DrawerFirstItems
+                  onClick={onOpenInvitationDrawer}
+                  icon={<AddIcon w={10} h={10} color="gray.400" />}
+                  text="招待"
+                />
+                <DrawerFirstItems
+                  onClick={onOpenModal}
+                  icon={<WarningTwoIcon w={10} h={10} color="gray.400" />}
+                  text="退会"
+                />
               </Flex>
               <Divider />
               <Stack pb={8} spacing={8}>
@@ -119,16 +177,45 @@ export const TalkDrawer = (props) => {
                     <ChevronRightIcon w={10} h={10} />
                   </Flex>
                 </Flex>
-                <DrawerTwo />
+                <DrawerTwo
+                  onOpenTwoPhoto={onOpenTwoPhoto}
+                  onOpenTwoAlbum={onOpenTwoAlbum}
+                />
               </Stack>
-              <DrawerList />
+              <DrawerList
+                onOpenFiveDrawer={onOpenFiveDrawer}
+                onOpenOthersDrawer={onOpenOthersDrawer}
+                onOpenCalendarDrawer={onOpenCalendarDrawer}
+              />
             </Box>
           </DrawerBody>
         </DrawerContent>
       </Drawer>
+      <LockModal
+        isOpenLockModal={isOpenLockModal}
+        onCloseLockModal={onCloseLockModal}
+      />
       <WithdrawalModal isOpenModal={isOpenModal} onCloseModal={onCloseModal} />
-      <MemberDrawer isOpenMemberDrawer={isOpenMemberDrawer} onCloseMemberDrawer={onCloseMemberDrawer} />
-      <InvitationDrawer isOpenInvitationDrawer={isOpenInvitationDrawer} onCloseInvitationDrawer={onCloseInvitationDrawer} />
+      <MemberDrawer
+        isOpenMemberDrawer={isOpenMemberDrawer}
+        onCloseMemberDrawer={onCloseMemberDrawer}
+      />
+      <InvitationDrawer
+        isOpenInvitationDrawer={isOpenInvitationDrawer}
+        onCloseInvitationDrawer={onCloseInvitationDrawer}
+      />
+      <FiveContentsDrawer
+        isOpenFiveDrawer={isOpenFiveDrawer}
+        onCloseFiveDrawer={onCloseFiveDrawer}
+      />
+      <OthersDrawer
+        isOpenOthersDrawer={isOpenOthersDrawer}
+        onCloseOthersDrawer={onCloseOthersDrawer}
+      />
+      <CalendarDrawer
+        isOpenCalendarDrawer={isOpenCalendarDrawer}
+        onCloseCalendarDrawer={onCloseCalendarDrawer}
+      />
     </>
   );
-};
+});

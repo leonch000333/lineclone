@@ -1,4 +1,4 @@
-import { Input, useDisclosure } from "@chakra-ui/react";
+import { Box, Flex, Input, useDisclosure } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import firebase from "firebase/compat/app";
 import { AddIcon, ArrowRightIcon, LinkIcon, ViewIcon } from "@chakra-ui/icons";
@@ -6,6 +6,7 @@ import { AddIcon, ArrowRightIcon, LinkIcon, ViewIcon } from "@chakra-ui/icons";
 import { db, auth, storage } from "../firebase";
 import { AddPictureModal } from "./modals/AddPictureModal";
 import { AddPhotoToLineDrawer } from "./Drawers/AddPhotoToLineDrawer";
+import { AddDrawer } from "./Drawers/AddDrawer";
 
 function SendMessage() {
   const [message, setMessage] = useState("");
@@ -21,6 +22,13 @@ function SendMessage() {
     onOpen: onOpenPhotoDrawer,
   } = useDisclosure();
 
+  //AddDrawer発火
+  const {
+    onClose: onCloseAddDrawer,
+    isOpen: isOpenAddDrawer,
+    onOpen: onOpenAddDrawer,
+  } = useDisclosure();
+
   useEffect(() => {
     //このimagesはfirebaseのdatabaseのコレクション名
     db.collection("images")
@@ -29,7 +37,6 @@ function SendMessage() {
         setImageUrl(snapshot.docs.map((doc) => doc.data()));
       });
   }, []);
-
 
   const onChangeMessage = (e) => setMessage(e.target.value);
 
@@ -51,21 +58,22 @@ function SendMessage() {
   return (
     <>
       <form onSubmit={sendMessage}>
-        <div className="sendMessage">
-          <AddIcon mr={6} _hover={{ cursor: "pointer" }} />
-          <ViewIcon
-            onClick={onOpenPhotoDrawer}
-            mr={6}
-            _hover={{ cursor: "pointer" }}
-          />
-          <LinkIcon onClick={onOpen} mr={6} _hover={{ cursor: "pointer" }} />
+        <Box className="sendMessage">
+          <Flex justify="space-between" alignItems="center">
+            <AddIcon
+              mr={6}
+              _hover={{ cursor: "pointer" }}
+              onClick={onOpenAddDrawer}
+            />
+            <ViewIcon
+              onClick={onOpenPhotoDrawer}
+              mr={6}
+              _hover={{ cursor: "pointer" }}
+            />
+            <LinkIcon onClick={onOpen} mr={6} _hover={{ cursor: "pointer" }} />
+          </Flex>
           <Input
-            style={{
-              width: "78%",
-              fontSize: "15px",
-              fontWeight: "550",
-              marginLeft: "5px",
-            }}
+            w={{base: "60%", md: "85%"}}
             bg="gray.100"
             placeholder="メッセージを入力してください"
             type="text"
@@ -73,12 +81,16 @@ function SendMessage() {
             value={message}
           />
           <ArrowRightIcon style={{ color: "#7ac2ff", marginLeft: "20px" }} />
-        </div>
+        </Box>
       </form>
       <AddPictureModal onClose={onClose} isOpen={isOpen} />
       <AddPhotoToLineDrawer
         isOpenPhotoDrawer={isOpenPhotoDrawer}
         onClosePhotoDrawer={onClosePhotoDrawer}
+      />
+      <AddDrawer
+        isOpenAddDrawer={isOpenAddDrawer}
+        onCloseAddDrawer={onCloseAddDrawer}
       />
     </>
   );

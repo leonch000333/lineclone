@@ -10,6 +10,7 @@ import {
   Button,
   Box,
   Image,
+  Checkbox,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { db } from "../../firebase";
@@ -17,6 +18,7 @@ import { db } from "../../firebase";
 export const AddPhotoToLineDrawer = (props) => {
   const { isOpenPhotoDrawer, onClosePhotoDrawer } = props;
 
+  const [check, setCheck] = useState(false);
   const [imgUrls, setImgUrl] = useState([]);
 
   //stateのimgUrlsにdbのコレクション名'images'のフィールドを追加。下でimgUrlをmapでループすることで写真を表示。
@@ -30,6 +32,8 @@ export const AddPhotoToLineDrawer = (props) => {
       });
   }, []);
 
+  const onClickCheck = () => setCheck(!check);
+
   return (
     <Drawer
       isOpen={isOpenPhotoDrawer}
@@ -42,8 +46,27 @@ export const AddPhotoToLineDrawer = (props) => {
       <DrawerContent>
         <DrawerHeader>
           <Flex wrap="wrap">
-            {imgUrls.map(({imageURL}) => (
-              <Box w="33%" h="120" border="solid black 1px" _hover={{cursor: "pointer", opacity: "0.8"}}>
+            {imgUrls.map(({ imageURL }, index) => (
+              <Box
+                key={index.toString()}
+                onClick={onClickCheck}
+                w="33%"
+                h="120"
+                border="solid black 1px"
+                position="relative"
+                _hover={{ cursor: "pointer", opacity: "0.8" }}
+              >
+                <Box
+                  className={`${check && "check-on"}${index}`}
+                  w="18px"
+                  h="20px"
+                  backgroundColor="gray.100"
+                  border="white 1px solid"
+                  borderRadius="50%"
+                  position="absolute"
+                  right="10px"
+                  top="8px"
+                ></Box>
                 <Image src={imageURL} borderRadius="0px" objectFit="cover" />
               </Box>
             ))}

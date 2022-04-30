@@ -7,7 +7,7 @@ export const DrawerFirstItems = (props) => {
   return (
     <Box align="center" onClick={onClick} _hover={{ cursor: "pointer" }}>
       {icon}
-      <Box fontSize="18px">{text}</Box>
+      <Box fontSize={{base: "14px", md: "18px"}}>{text}</Box>
     </Box>
   );
 };
