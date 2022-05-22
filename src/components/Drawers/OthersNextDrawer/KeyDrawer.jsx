@@ -4,13 +4,12 @@ import {
   Drawer,
   DrawerBody,
   DrawerContent,
-  DrawerHeader,
   DrawerOverlay,
-  Flex,
   Link,
-  Switch,
 } from "@chakra-ui/react";
 import { memo } from "react";
+
+import { DrawerHeaders } from "../../organisms/DrawerHeaders";
 
 export const KeyDrawer = memo((props) => {
   const { isOpenKeyDrawer, onCloseKeyDrawer } = props;
@@ -24,21 +23,7 @@ export const KeyDrawer = memo((props) => {
     >
       <DrawerOverlay />
       <DrawerContent>
-        <DrawerHeader px="10%">
-          <Flex justify="space-between" alignItems="center" mb={4}>
-            <ChevronLeftIcon
-              w={10}
-              h={10}
-              onClick={onCloseKeyDrawer}
-              _hover={{ cursor: "pointer" }}
-            />
-            <p>暗号化キー</p>
-            <CloseIcon
-              onClick={onCloseKeyDrawer}
-              _hover={{ cursor: "pointer" }}
-            />
-          </Flex>
-        </DrawerHeader>
+        <DrawerHeaders onClick={onCloseKeyDrawer} children="暗号化キー" />
         <DrawerBody px="10%">
           <Box>
             <Box>

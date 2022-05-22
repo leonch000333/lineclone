@@ -1,16 +1,17 @@
-import { ChevronLeftIcon, CloseIcon, SearchIcon } from "@chakra-ui/icons";
+import { ChevronLeftIcon, CloseIcon } from "@chakra-ui/icons";
 import {
   Drawer,
   DrawerBody,
   DrawerContent,
-  DrawerHeader,
   DrawerOverlay,
   Flex,
   Button,
   Input,
 } from "@chakra-ui/react";
 import { memo, useContext } from "react";
+
 import { GroupNameContext } from "../../../providers/GroupNameProvider";
+import { DrawerHeaders } from "../../organisms/DrawerHeaders";
 
 export const GroupDrawer = memo((props) => {
   const { isOpenGroupDrawer, onCloseGroupDrawer } = props;
@@ -29,21 +30,7 @@ export const GroupDrawer = memo((props) => {
     >
       <DrawerOverlay />
       <DrawerContent>
-        <DrawerHeader px="10%">
-          <Flex justify="space-between" alignItems="center" mb={4}>
-            <ChevronLeftIcon
-              w={10}
-              h={10}
-              onClick={onCloseGroupDrawer}
-              _hover={{ cursor: "pointer" }}
-            />
-            <p>グループ名</p>
-            <CloseIcon
-              onClick={onCloseGroupDrawer}
-              _hover={{ cursor: "pointer" }}
-            />
-          </Flex>
-        </DrawerHeader>
+        <DrawerHeaders onClick={onCloseGroupDrawer} children="グループ名" />
         <DrawerBody px="10%" >
           <Input
             type="text"

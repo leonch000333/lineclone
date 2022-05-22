@@ -1,6 +1,7 @@
 import { CalendarIcon, ChevronRightIcon } from "@chakra-ui/icons";
 import { Box, Flex } from "@chakra-ui/react";
 import { memo, useContext } from "react";
+
 import { DrawerContext } from "../../providers/DrawerProvider";
 import { DrawerTwoContents } from "../atoms/DrawerTwoContents";
 
@@ -12,7 +13,7 @@ export const DrawerTwo = memo((props) => {
   return (
     <>
       {DrawerTwoContents.map((item, index) => (
-        <Box>
+        <Box key={index.toString()}>
           <Flex
             onClick={index === 0 ? onOpenTwoPhoto : onOpenTwoAlbum}
             alignItems="center"

@@ -1,15 +1,11 @@
-import { CloseIcon, SearchIcon } from "@chakra-ui/icons";
 import {
   Divider,
   Drawer,
   DrawerBody,
   DrawerContent,
-  DrawerHeader,
   DrawerOverlay,
   Flex,
   Box,
-  Button,
-  Input,
   List,
   ListItem,
   Image,
@@ -63,23 +59,6 @@ export const InvitationDrawer = memo((props) => {
     >
       <DrawerOverlay />
       <DrawerContent>
-        {/* <DrawerHeader px="10%">
-          <Flex justify="space-between" alignItems="center" mb={4}>
-            <CloseIcon
-              onClick={onCloseInvitationDrawer}
-              _hover={{ cursor: "pointer" }}
-            />
-            <p>{inviList.length >= 1 ? `選択中${inviList.length}` : "友だちを選択"}</p>
-            <Button display="block" variant="ghost">
-              招待
-            </Button>
-          </Flex>
-          <Input
-            type="text"
-            placeholder="名前で検索"
-            backgroundColor="gray.100"
-          />
-        </DrawerHeader> */}
         <DrawerHeaders
           onClick={onCloseInvitationDrawer}
           children={

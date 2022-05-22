@@ -11,7 +11,7 @@ export const DrawerHeaders = (props) => {
           onClick={onClick}
           _hover={{ cursor: "pointer" }}
         />
-        <Text>{children}</Text>
+        <Text fontSize={{base: "18px", md: "24px"}}>{children}</Text>
         <CloseIcon
           boxSize={{ base: "0.75rem", md: "1rem" }}
           onClick={onClick}

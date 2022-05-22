@@ -1,20 +1,14 @@
-import { AddIcon, ChevronLeftIcon, CloseIcon } from "@chakra-ui/icons";
 import {
   Drawer,
   DrawerBody,
   DrawerContent,
-  DrawerHeader,
   DrawerOverlay,
   Button,
   Box,
-  DrawerCloseButton,
   Text,
-  Image,
-  useDisclosure,
   Flex,
   List,
   ListItem,
-  Divider,
   Checkbox,
   Slider,
   SliderTrack,
@@ -22,6 +16,7 @@ import {
   SliderThumb,
 } from "@chakra-ui/react";
 import { memo, useContext, useState } from "react";
+
 import { DrawerContext } from "../../../providers/DrawerProvider";
 import { VoteContext } from "../../../providers/VoteProvider";
 import { DrawerHeaders } from "../../organisms/DrawerHeaders";
@@ -59,15 +54,15 @@ export const VoteAnswerDrawer = memo((props) => {
             onClick={onCloseVoteAnswerDrawer}
             children="投票する"
           />
-          <DrawerBody px="10%" textAlign="center">
-            <Text>{question[`${voteIndex}`]}</Text>
+          <DrawerBody fontSize={{base: "18px", md: "24px"}} px="10%" textAlign="center">
+            <Text mb={8}>{question[`${voteIndex}`]}</Text>
             <Flex alignItems="center" justify="space-between">
               <Button>アナウンスに登録</Button>
               <Text>0人が参加中</Text>
             </Flex>
             <List spacing={4} mt={8}>
               {listNumber.map((num, index) => (
-                <ListItem>
+                <ListItem key={index.toString()}>
                   <Flex alignItems="center">
                     <Checkbox w="5%" />
                     <Box w="95%">
@@ -101,8 +96,14 @@ export const VoteAnswerDrawer = memo((props) => {
               ))}
             </List>
             <Flex alignItems="center" justify="space-between" mt={16}>
-              <Button w="40%">投票を終了</Button>
-              <Button w="40%" colorScheme="green">
+              <Button onClick={onCloseVoteAnswerDrawer} w="40%">
+                投票を終了
+              </Button>
+              <Button
+                onClick={onCloseVoteAnswerDrawer}
+                w="40%"
+                colorScheme="green"
+              >
                 投票
               </Button>
             </Flex>

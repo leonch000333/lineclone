@@ -9,9 +9,9 @@ import {
   Input,
   List,
   ListItem,
-  Box,
 } from "@chakra-ui/react";
 import { memo, useContext, useState } from "react";
+
 import { DrawerContext } from "../../providers/DrawerProvider";
 import { GroupNameContext } from "../../providers/GroupNameProvider";
 

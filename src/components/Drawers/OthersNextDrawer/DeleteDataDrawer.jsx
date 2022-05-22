@@ -1,4 +1,4 @@
-import { ChevronLeftIcon, ChevronRightIcon, CloseIcon } from "@chakra-ui/icons";
+import {  ChevronRightIcon } from "@chakra-ui/icons";
 import {
   Box,
   Button,
@@ -7,7 +7,6 @@ import {
   Drawer,
   DrawerBody,
   DrawerContent,
-  DrawerHeader,
   DrawerOverlay,
   Flex,
   List,
@@ -21,7 +20,9 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { memo, useState } from "react";
+
 import { DeleteDataModal } from "../../modals/DeleteDataModal";
+import { DrawerHeaders } from "../../organisms/DrawerHeaders";
 
 export const DeleteDataDrawer = memo((props) => {
   const { isOpenDeleteDataDrawer, onCloseDeleteDataDrawer } = props;
@@ -45,21 +46,7 @@ export const DeleteDataDrawer = memo((props) => {
       >
         <DrawerOverlay />
         <DrawerContent>
-          <DrawerHeader px="10%">
-            <Flex justify="space-between" alignItems="center" mb={4}>
-              <ChevronLeftIcon
-                w={10}
-                h={10}
-                onClick={onCloseDeleteDataDrawer}
-                _hover={{ cursor: "pointer" }}
-              />
-              <p>データを削除</p>
-              <CloseIcon
-                onClick={onCloseDeleteDataDrawer}
-                _hover={{ cursor: "pointer" }}
-              />
-            </Flex>
-          </DrawerHeader>
+          <DrawerHeaders onClick={onCloseDeleteDataDrawer} children="データを削除" />
           <DrawerBody px="10%">
             <Box>
               <Flex

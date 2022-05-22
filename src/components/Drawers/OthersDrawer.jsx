@@ -1,15 +1,8 @@
-import {
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  CloseIcon,
-  SearchIcon,
-} from "@chakra-ui/icons";
+import { ChevronRightIcon } from "@chakra-ui/icons";
 import {
   Drawer,
   DrawerBody,
-  DrawerCloseButton,
   DrawerContent,
-  DrawerHeader,
   DrawerOverlay,
   Flex,
   Box,
@@ -116,21 +109,6 @@ export const OthersDrawer = (props) => {
       >
         <DrawerOverlay />
         <DrawerContent>
-          {/* <DrawerHeader px="10%">
-            <Flex justify="space-between" alignItems="center" mb={4}>
-              <ChevronLeftIcon
-                boxSize={{ base: "2rem", md: "2.5rem" }}
-                onClick={onCloseOthersDrawer}
-                _hover={{ cursor: "pointer" }}
-              />
-              <p>その他</p>
-              <CloseIcon
-                boxSize={{ base: "0.75rem", md: "1rem" }}
-                onClick={onCloseOthersDrawer}
-                _hover={{ cursor: "pointer" }}
-              />
-            </Flex>
-          </DrawerHeader> */}
           <DrawerHeaders onClick={onCloseOthersDrawer} children="その他" />
           <DrawerBody px="10%">
             <Box

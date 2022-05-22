@@ -1,9 +1,7 @@
-import { ChevronLeftIcon, CloseIcon } from "@chakra-ui/icons";
 import {
   Drawer,
   DrawerBody,
   DrawerContent,
-  DrawerHeader,
   DrawerOverlay,
 } from "@chakra-ui/react";
 import { memo } from "react";

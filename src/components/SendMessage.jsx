@@ -1,9 +1,9 @@
-import { Box, Flex, Input, useDisclosure } from "@chakra-ui/react";
+import { Box, Flex, Input, Textarea, useDisclosure } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import firebase from "firebase/compat/app";
 import { AddIcon, ArrowRightIcon, LinkIcon, ViewIcon } from "@chakra-ui/icons";
 
-import { db, auth, storage } from "../firebase";
+import { db, auth } from "../firebase";
 import { AddPictureModal } from "./modals/AddPictureModal";
 import { AddPhotoToLineDrawer } from "./Drawers/AddPhotoToLineDrawer";
 import { AddDrawer } from "./Drawers/AddDrawer";
@@ -58,7 +58,16 @@ function SendMessage() {
   return (
     <>
       <form onSubmit={sendMessage}>
-        <Box className="sendMessage">
+        <Flex
+          w="100%"
+          p="10px"
+          position="fixed"
+          bottom="0"
+          zIndex="1"
+          bgColor="#fafafa"
+          alignItems="center"
+          justify="center"
+        >
           <Flex justify="space-between" alignItems="center">
             <AddIcon
               mr={6}
@@ -73,15 +82,29 @@ function SendMessage() {
             <LinkIcon onClick={onOpen} mr={6} _hover={{ cursor: "pointer" }} />
           </Flex>
           <Input
-            w={{base: "60%", md: "85%"}}
+            w={{ base: "60%", md: "85%" }}
             bg="gray.100"
             placeholder="メッセージを入力してください"
             type="text"
             onChange={onChangeMessage}
             value={message}
           />
-          <ArrowRightIcon style={{ color: "#7ac2ff", marginLeft: "20px" }} />
-        </Box>
+          {/* <Textarea
+            rows={1}
+            wrap="soft"
+            w={{ base: "60%", md: "85%" }}
+            bg="gray.100"
+            placeholder="メッセージを入力してください"
+            type="text"
+            onChange={onChangeMessage}
+            value={message}
+          /> */}
+          <ArrowRightIcon
+            onClick={sendMessage}
+            style={{ color: "#7ac2ff", marginLeft: "20px" }}
+            _hover={{ cursor: "pointer" }}
+          />
+        </Flex>
       </form>
       <AddPictureModal onClose={onClose} isOpen={isOpen} />
       <AddPhotoToLineDrawer

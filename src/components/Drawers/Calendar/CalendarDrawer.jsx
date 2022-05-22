@@ -1,18 +1,14 @@
-import { ChevronLeftIcon, CloseIcon, SearchIcon } from "@chakra-ui/icons";
 import {
-  Divider,
   Drawer,
   DrawerBody,
   DrawerContent,
-  DrawerHeader,
   DrawerOverlay,
   Flex,
-  Box,
-  Text,
   useDisclosure,
 } from "@chakra-ui/react";
 import { memo } from "react";
 import { Calendar } from "react-calendar";
+
 import { DrawerHeaders } from "../../organisms/DrawerHeaders";
 import { AddEventDrawer } from "./AddEventDrawer";
 

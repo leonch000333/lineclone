@@ -2,7 +2,6 @@ import {
   Drawer,
   DrawerBody,
   DrawerContent,
-  DrawerHeader,
   DrawerOverlay,
   Flex,
   Box,
@@ -10,8 +9,10 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { memo } from "react";
+
 import { AddLists } from "../atoms/AddLists";
 import { AvatarModal } from "../modals/AvatarModal";
+import { DateSettingDrawer } from "./DateSettingDrawer";
 import { VoteDrawer } from "./VoteDrawer/VoteDrawer";
 
 export const AddDrawer = memo((props) => {
@@ -29,6 +30,13 @@ export const AddDrawer = memo((props) => {
     onOpen: onOpenVoteDrawer,
     isOpen: isOpenVoteDrawer,
     onClose: onCloseVoteDrawer,
+  } = useDisclosure();
+
+  //DateSettingDrawer発火
+  const {
+    onOpen: onOpenDateSettingDrawer,
+    isOpen: isOpenDateSettingDrawer,
+    onClose: onCloseDateSettingDrawer,
   } = useDisclosure();
 
   return (
@@ -52,7 +60,9 @@ export const AddDrawer = memo((props) => {
                       ? onOpenAvatarModal
                       : index === 9
                       ? onOpenVoteDrawer
-                      : item.onClick
+                      : index === 10
+                      ? onOpenDateSettingDrawer
+                      : item.click
                   }
                   key={index.toString()}
                   w="33%"
@@ -77,6 +87,10 @@ export const AddDrawer = memo((props) => {
       <VoteDrawer
         isOpenVoteDrawer={isOpenVoteDrawer}
         onCloseVoteDrawer={onCloseVoteDrawer}
+      />
+      <DateSettingDrawer
+        isOpenDateSettingDrawer={isOpenDateSettingDrawer}
+        onCloseDateSettingDrawer={onCloseDateSettingDrawer}
       />
     </>
   );

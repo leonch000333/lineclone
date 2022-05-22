@@ -9,10 +9,10 @@ import {
 } from "@chakra-ui/react";
 import { memo } from "react";
 
-
+import { auth } from "../../firebase";
 
 export const WithdrawalModal = memo((props) => {
-	const {isOpenModal, onCloseModal} = props
+  const { isOpenModal, onCloseModal } = props;
 
   return (
     <Modal isOpen={isOpenModal} onClose={onCloseModal} autoFocus={false}>
@@ -31,7 +31,11 @@ export const WithdrawalModal = memo((props) => {
             >
               キャンセル
             </Button>
-            <Button colorScheme="red" variant={"outline"}>
+            <Button
+              onClick={() => auth.signOut()}
+              colorScheme="red"
+              variant={"outline"}
+            >
               退会
             </Button>
           </Flex>

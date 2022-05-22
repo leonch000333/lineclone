@@ -1,13 +1,13 @@
-import { ChevronLeftIcon, ChevronRightIcon, CloseIcon, SearchIcon } from "@chakra-ui/icons";
+import { ChevronLeftIcon, CloseIcon } from "@chakra-ui/icons";
 import {
-	Box,
+  Box,
   Drawer,
   DrawerBody,
   DrawerContent,
   DrawerHeader,
   DrawerOverlay,
   Flex,
-	Switch,
+  Switch,
 } from "@chakra-ui/react";
 import { memo } from "react";
 
@@ -40,16 +40,12 @@ export const AutoFriendAddDrawer = memo((props) => {
         </DrawerHeader>
         <DrawerBody px="10%">
           <Box py={8} _hover={{ cursor: "pointer" }}>
-            <Flex
-              alignItems="center"
-              justify="space-between"
-              mt={4}
-            >
+            <Flex alignItems="center" justify="space-between" mt={4}>
               <Box fontWeight="bold" fontSize={24}>
                 友達をグループに自動で追加
               </Box>
               <Flex alignItems="center">
-                <Switch colorScheme="green" autoFocus="none" size="lg"  />
+                <Switch colorScheme="green" autoFocus="none" size="lg" />
               </Flex>
             </Flex>
             <Box>

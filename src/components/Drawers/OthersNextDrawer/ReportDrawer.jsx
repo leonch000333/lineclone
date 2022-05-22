@@ -1,20 +1,18 @@
-import { ChevronLeftIcon, CloseIcon } from "@chakra-ui/icons";
 import {
   Box,
   Button,
   Drawer,
   DrawerBody,
   DrawerContent,
-  DrawerHeader,
   DrawerOverlay,
-  Flex,
-  Link,
   Radio,
   RadioGroup,
   Stack,
   Text,
 } from "@chakra-ui/react";
 import { memo } from "react";
+
+import { DrawerHeaders } from "../../organisms/DrawerHeaders";
 
 export const ReportDrawer = memo((props) => {
   const { isOpenReportDrawer, onCloseReportDrawer } = props;
@@ -28,21 +26,7 @@ export const ReportDrawer = memo((props) => {
     >
       <DrawerOverlay />
       <DrawerContent>
-        <DrawerHeader px="10%">
-          <Flex justify="space-between" alignItems="center" mb={4}>
-            <ChevronLeftIcon
-              w={10}
-              h={10}
-              onClick={onCloseReportDrawer}
-              _hover={{ cursor: "pointer" }}
-            />
-            <p>通報</p>
-            <CloseIcon
-              onClick={onCloseReportDrawer}
-              _hover={{ cursor: "pointer" }}
-            />
-          </Flex>
-        </DrawerHeader>
+        <DrawerHeaders onClick={onCloseReportDrawer} children="通報" />
         <DrawerBody px="10%">
           <Text>
             通報する理由を以下から

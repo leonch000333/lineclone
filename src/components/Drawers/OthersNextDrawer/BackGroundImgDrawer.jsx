@@ -1,13 +1,9 @@
-import { ChevronLeftIcon, CloseIcon, SearchIcon } from "@chakra-ui/icons";
 import {
   Drawer,
   DrawerBody,
   DrawerContent,
-  DrawerHeader,
   DrawerOverlay,
   Flex,
-  Button,
-  Input,
   Image,
   Box,
   useDisclosure,
@@ -46,21 +42,6 @@ export const BackGroundImgDrawer = memo((props) => {
       >
         <DrawerOverlay />
         <DrawerContent>
-          {/* <DrawerHeader px="10%">
-            <Flex justify="space-between" alignItems="center" mb={4}>
-              <ChevronLeftIcon
-                w={10}
-                h={10}
-                onClick={onCloseBackGroundImgDrawer}
-                _hover={{ cursor: "pointer" }}
-              />
-              <p>背景デザイン</p>
-              <CloseIcon
-                onClick={onCloseBackGroundImgDrawer}
-                _hover={{ cursor: "pointer" }}
-              />
-            </Flex>
-          </DrawerHeader> */}
           <DrawerHeaders
             onClick={onCloseBackGroundImgDrawer}
             children="背景デザイン"
@@ -69,6 +50,7 @@ export const BackGroundImgDrawer = memo((props) => {
             <Flex wrap="wrap" flexDirection="row">
               {arry.map((item, index) => (
                 <Box
+                  key={index.toString()}
                   onClick={() => checkBgimg(index)}
                   width={{base: "50%", md: "33%"}}
                   border="white solid 1px"

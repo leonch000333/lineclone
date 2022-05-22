@@ -1,13 +1,11 @@
-import { AddIcon, ChevronLeftIcon, CloseIcon } from "@chakra-ui/icons";
+import { AddIcon } from "@chakra-ui/icons";
 import {
   Drawer,
   DrawerBody,
   DrawerContent,
-  DrawerHeader,
   DrawerOverlay,
   Button,
   Box,
-  DrawerCloseButton,
   Text,
   Image,
   useDisclosure,
@@ -17,10 +15,10 @@ import {
   Divider,
 } from "@chakra-ui/react";
 import { memo, useContext } from "react";
+
 import { DrawerContext } from "../../../providers/DrawerProvider";
 import { VoteContext } from "../../../providers/VoteProvider";
 import { DrawerHeaders } from "../../organisms/DrawerHeaders";
-import { AddDrawer } from "../AddDrawer";
 import { VoteAnswerDrawer } from "./VoteAnswerDrawer";
 import { VoteDetailDrawer } from "./VoteDetailDrawer";
 
@@ -62,7 +60,11 @@ export const VoteDrawer = memo((props) => {
         <DrawerOverlay />
         <DrawerContent>
           <DrawerHeaders onClick={onCloseVoteDrawer} children="投票" />
-          <DrawerBody px="10%" textAlign="center">
+          <DrawerBody
+            fontSize={{ base: "18px", md: "24px" }}
+            px="10%"
+            textAlign="center"
+          >
             {question.length < 1 ? (
               <>
                 <Box textAlign="center" mt="10%" mb={4}>

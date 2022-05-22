@@ -1,8 +1,8 @@
 import { ChevronRightIcon } from "@chakra-ui/icons";
 import { Box, ListItem, List } from "@chakra-ui/react";
 import { memo, useContext } from "react";
-import { DrawerContext } from "../../providers/DrawerProvider";
 
+import { DrawerContext } from "../../providers/DrawerProvider";
 import { DrawerListItems } from "../atoms/DrawerListItems";
 
 export const DrawerList = memo((props) => {
