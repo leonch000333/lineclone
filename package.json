@@ -26,9 +26,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deplay": "gh-pages -d build"
+    "deploy": "gh-pages -d build"
   },
-  "homepage": "https://leonch000333.github.io/lineclone/",
+  "homepage": "https://leonch000333.github.io/lineclone",
   "eslintConfig": {
     "extends": [
       "react-app",
